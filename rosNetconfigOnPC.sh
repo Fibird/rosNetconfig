@@ -7,9 +7,15 @@
 
 echo "Load ROS network configuration..."
 
-# Get the hostname of remote robot side
-echo -n "Enter the hostname of Robot side: "
-read master_uri
+if [ x$1 = x ]
+then
+    # Get the hostname of remote robot side from user's input
+    echo -n "Enter the hostname of Robot side: "
+    read master_uri
+else
+    # Get the hostname of remote robot side from command arguement
+    master_uri=$1
+fi
 
 # The IP address for the Master node
 export ROS_MASTER_URI=http://${master_uri}.local:11311
