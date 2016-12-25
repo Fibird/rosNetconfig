@@ -4,7 +4,7 @@ You can use these shell scripts to configure ROS network easily. It's only take 
 
 # Usage
 
-## Robot side
+## Robot Side
 
 It's quite easily to use them! On your robot side, you can just type:
 
@@ -34,7 +34,7 @@ In other ways, you can pass the hostname as a command argument:
 source ~/startTurtlebot/rosNetconfigOnRobot.sh <your-robot-hostname>
 ```
 
-# Suggestions
+# Tips 
 
 Maybe you think it so inconvenient to run these scripts every time opening a new terminal. If you think so, you can add the command of running into your `.bashrc` file:
 
