@@ -1,4 +1,4 @@
-# OVERVIEW
+# Overview
 
 You can use these shell scripts to configure ROS network easily. It's only take effect in your current terminal, so when you open a new terminal, you need to run these scripts again. Fortunately, there is a good way to solve this problem. Please read on patiently!
 
@@ -26,7 +26,7 @@ source ~/startTurtlebot/rosNetconfigOnPC.sh
 ```
 or simply replace source with `.`.
 
-And then you need to input the hostname of remote robot side.
+And then you will be prompted to input the hostname of remote robot side. You can get it using command `hostname` in your remote robot.
 
 In other ways, you can pass the hostname as a command argument:
 
