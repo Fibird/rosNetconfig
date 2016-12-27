@@ -36,7 +36,7 @@ source ~/startTurtlebot/rosNetconfigOnRobot.sh <your-robot-hostname>
 
 # Tips 
 
-Maybe you think it so inconvenient to run these scripts every time opening a new terminal. If you think so, you can add the command of running into your `.bashrc` file:
+Maybe you think it so inconvenient to run these scripts every time opening a new terminal. If you think so, you can add these commands into your `.bashrc` file:
 
 
 On your robot side, you can type:
@@ -62,3 +62,5 @@ Or:
 ```
 gedit ~/.bashrc
 ```
+
+Enjoy!
