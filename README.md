@@ -1,66 +1,39 @@
 # Overview
 
-You can use these shell scripts to configure ROS network easily. It's only take effect in your current terminal, so when you open a new terminal, you need to run these scripts again. Fortunately, there is a good way to solve this problem. Please read on patiently!
+You can use this tool to configure ROS network easily. This tool need to be put on your robot and your PC at same time. And it is a little different to use it in your robot and PC. 
 
 # Usage
 
 ## Robot Side
 
-It's quite easily to use them! On your robot side, you can just type:
+It's quite easily to use them! On your robot side, you only need to execute the scripts of robot:
 
 ```
-source ~/startTurtlebot/rosNetconfigOnRobot.sh
+$ ./robotSetup.sh
 ```
-or only use `.`:
+Maybe you need use `chmod` command to add execute permission at first:
 
 ```
-. ~/startTurtlebot/rosNetconfigOnRobot.sh
+$ sudo chmod +x robotSetup.sh
 ```
 
 ## PC Side
 
-And on your PC side, you can type:
+Similarly, just run the corresponding scripts and make sure you have execute permission. 
 
 ```
-source ~/startTurtlebot/rosNetconfigOnPC.sh
-```
-or simply replace source with `.`.
-
-And then you will be prompted to input the hostname of remote robot side. You can get it using command `hostname` in your remote robot.
-
-In other ways, you can pass the hostname as a command argument:
-
-```
-source ~/startTurtlebot/rosNetconfigOnRobot.sh <your-robot-hostname>
+$ ./pcSetup.sh
 ```
 
-# Tips 
+When you open a new terminal, you will be prompted to input the hostname of your remote robot.
 
-Maybe you think it so inconvenient to run these scripts every time opening a new terminal. If you think so, you can add these commands into your `.bashrc` file:
+> Load ROS network configuration...
+
+> Enter the hostname of Robot side: 
 
 
-On your robot side, you can type:
-
-```
-echo "source ~/startTurtlebot/rosNetconfigOnRobot.sh" >> ~/.bashrc
-```
-
-On your PC side, you can type:
+You can get it using command `hostname` in your remote robot:
 
 ```
-echo "source ~/startTurtlebot/rosNetconfigOnPC.sh <your-robot-hostname>" >> ~/.bashrc
+$ hostname
 ```
-
-You can also append them by editing the .bashrc using your favorite editor, for example:
-
-```
-vim ~/.bashrc
-```
-
-Or:
-
-```
-gedit ~/.bashrc
-```
-
-Enjoy!
