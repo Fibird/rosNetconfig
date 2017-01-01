@@ -27,10 +27,10 @@ $ ./pcSetup.sh
 
 When you open a new terminal, you will be prompted to input the hostname of your remote robot.
 
-> Load ROS network configuration...
-
-> Enter the hostname of Robot side: 
-
+```
+Load ROS network configuration...
+Enter the hostname of Robot side: 
+```
 
 You can get it using command `hostname` in your remote robot:
 
