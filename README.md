@@ -37,3 +37,4 @@ You can get it using command `hostname` in your remote robot:
 ```
 $ hostname
 ```
+Enjoy it!
