@@ -1,0 +1,3 @@
+ROS_MASTER_URI=$master_uri
+ROS_HOSTNAME=hn
+ROS_IP=$val

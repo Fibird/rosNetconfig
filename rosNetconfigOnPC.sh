@@ -5,32 +5,124 @@
 # This script is licensed under GNU GPL version 3 or above
 # ----------------------------------------------------------------
 
-echo "Load ROS network configuration..."
+# Usage info
+show_help() {
+cat << EOF
+Usage: ${0##*/} [-rn HOSTNAME] [-f OUTFILE] [FILE]...
+EOF
+}
 
-if [ x$1 = x ]
+# Set ros master
+set_ros_master() {
+  master_uri=$1
+  sed -i 's/\(^ROS_MASTER_URI=\).*/\1$master_uri/' ./config/rosNetCfg
+}
+
+# Set ros ip
+set_ros_ip() {
+  ip_add=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'`
+  sed -i 's/\(^ROS_IP=\).*/\1$ip_add/' ./config/rosNetCfg
+}
+
+# Set ros hostname
+set_ros_hostname() {
+  hn=$(hostname).local
+  sed -i 's/\(^ROS_HOSTNAME=\).*\$/\1$hn/' ./config/rosNetCfg
+}
+
+display_config() {
+ echo "nothing"
+}
+
+getopt --test > /dev/null
+if [[ $? -ne 4 ]]
 then
-  # The IP address for the Master node
-  if [ -z ${ROS_MASTER_URI+x} ]
-  then
-    # Get the hostname of remote robot side from user's input
-    echo -n "Enter the hostname of Robot side: "
-    read master_uri
-else
-    # Get the hostname of remote robot side from command arguement
-    master_uri=$1
+  echo "Error:`getopt --test` failed in this environment."
+  exit 1
 fi
 
-echo export ROS_MASTER_URI=http://${master_uri}.local:11311 >> ~/.bashrc
-echo "--- The environment variable ROS_MASTER_URI is $ROS_MASTER_URI"
-ZChostname=`hostname`.local
+#---------------------------------------------
+# d | h | l | m | n | r
+# 0 | 1 | 2 | 3 | 4 | 5
+#---------------------------------------------
+SHORT=dfhlmn:r
+#SHORT=flrmdn:h
+LONG=force,local,remote,master,display,name:,help
 
-# The hostname for your device/host
-export ROS_HOSTNAME=$ZChostname
-echo "--- The environment variable ROS_HOSTNAME is $ROS_HOSTNAME"
+PARSED=$(getopt --options $SHORT --longoptions $LONG --name "$0" -- "$@")
+if [[ $? -ne 0 ]]
+then
+  show_help
+  exit 2
+fi
 
-# Set ROS IP
-IP=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'`
-export ROS_IP=$IP
-echo "--- The environment ROS_IP is $ROS_IP"
+flag=$(expr 0)
 
-echo "--- ROS network configure successully!"
+while true; do
+  case "$1" in
+    -d|--display)
+      flag=$(expr $flag + 1)
+      shift
+      ;;
+    -f|--force)
+      flag=$(expr $flag + 2)
+      shift
+      ;;
+    -h|--help)
+      flag=$(expr $flag + 2*2)
+      shift
+      ;;
+    -l|--local)
+      echo "line 76"
+      flag=$(( $flag + 2 * 2))
+      shift
+      ;;
+    -m|--master)
+      flag=$(expr $flag + 2*2*2)
+      shift
+      ;;
+    -r|--remote)
+      flag=$(expr $flag + 2*2*2*2*2)
+      shift
+      ;;
+    -n|--name)
+      flag=$(expr $flag + 2*2*2*2)
+      name="$2"
+      shift 2
+      ;;
+    --)       # End of all options
+      shift
+      break
+      ;;
+    -?*)
+      echo "WARN: Unknown option (ignored): $1"
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+
+case $(expr $flag) in
+  1)
+    display_config
+    ;;
+  2)
+    show_help
+    ;;
+  4)
+    set_ros_master $(hostname)
+    ;;
+  80)
+    set_ros_master $(hostname)
+    ;;
+  96)
+    set_ros_master $name
+    ;;
+  *)
+    #break
+    ;;
+esac
+
+set_ros_ip
+set_ros_hostname
