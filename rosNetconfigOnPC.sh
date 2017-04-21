@@ -15,19 +15,19 @@ EOF
 # Set ros master
 set_ros_master() {
   master_uri=$1
-  sed -i 's/\(^ROS_MASTER_URI=\).*/\1$master_uri/' ./config/rosNetCfg
+  sed -i "s/\(^ROS_MASTER_URI=\).*/\1$master_uri/" ./config/rosNetCfg
 }
 
 # Set ros ip
 set_ros_ip() {
   ip_add=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'`
-  sed -i 's/\(^ROS_IP=\).*/\1$ip_add/' ./config/rosNetCfg
+  sed -i "s/\(^ROS_IP=\).*/\1$ip_add/" ./config/rosNetCfg
 }
 
 # Set ros hostname
 set_ros_hostname() {
   hn=$(hostname).local
-  sed -i 's/\(^ROS_HOSTNAME=\).*\$/\1$hn/' ./config/rosNetCfg
+  sed -i "s/\(^ROS_HOSTNAME=\).*\$/\1$hn/" ./config/rosNetCfg
 }
 
 display_config() {
