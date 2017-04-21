@@ -8,13 +8,13 @@
 # Usage info
 show_help() {
 cat << EOF
-Usage: ${0##*/} [-rn HOSTNAME] [-f OUTFILE] [FILE]...
+Usage: ${0##*/} [-rn HOSTNAME] [-rm]...
 EOF
 }
 
 # Set ros master
 set_ros_master() {
-  master_uri=$1
+  master_uri=$1.local
   sed -i "s/\(^ROS_MASTER_URI=\).*/\1$master_uri/" ./config/rosNetCfg
 }
 
@@ -56,37 +56,34 @@ then
   exit 2
 fi
 
+eval set -- "$PARSED"
+
 flag=$(expr 0)
 
 while true; do
   case "$1" in
     -d|--display)
-      flag=$(expr $flag + 1)
-      shift
-      ;;
-    -f|--force)
-      flag=$(expr $flag + 2)
+      flag=$(($flag + 1))
       shift
       ;;
     -h|--help)
-      flag=$(expr $flag + 2*2)
+      flag=$(($flag + 2))
       shift
       ;;
     -l|--local)
-      echo "line 76"
-      flag=$(( $flag + 2 * 2))
+      flag=$(($flag + 2 * 2))
       shift
       ;;
     -m|--master)
-      flag=$(expr $flag + 2*2*2)
+      flag=$(($flag + 2 * 2 * 2))
       shift
       ;;
     -r|--remote)
-      flag=$(expr $flag + 2*2*2*2*2)
+      flag=$(($flag + 2 * 2 * 2 * 2 * 2))
       shift
       ;;
     -n|--name)
-      flag=$(expr $flag + 2*2*2*2)
+      flag=$(($flag + 2 * 2 * 2 * 2))
       name="$2"
       shift 2
       ;;
@@ -94,11 +91,8 @@ while true; do
       shift
       break
       ;;
-    -?*)
-      echo "WARN: Unknown option (ignored): $1"
-      ;;
     *)
-      break
+      exit 3
       ;;
   esac
 done
@@ -113,10 +107,10 @@ case $(expr $flag) in
   4)
     set_ros_master $(hostname)
     ;;
-  80)
+  40)
     set_ros_master $(hostname)
     ;;
-  96)
+  48)
     set_ros_master $name
     ;;
   *)
