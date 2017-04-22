@@ -32,7 +32,7 @@ set_ros_master() {
 
 # Set ros ip
 set_ros_ip() {
-  ip_add=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'`
+  ip_add=$(ip route get 8.8.8.8 | awk '/8.8.8.8/ {print $NF}')
   sed -i "s/\(^export\ ROS_IP=\).*/\1$ip_add/" ./config/rosNetCfg
 }
 
