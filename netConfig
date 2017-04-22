@@ -35,10 +35,15 @@ set_ros_ip() {
   sed -i "s/\(^ROS_IP=\).*/\1$ip_add/" ./config/rosNetCfg
 }
 
+display_remote_master_ip() {
+  master_ip="`gethostip -d "$1"`"
+  echo "The IP address of ros master is: $master_ip"
+}
 # Set ros hostname
 set_ros_hostname() {
   hn=$(hostname).local
-  sed -i "s/\(^ROS_HOSTNAME=\).*\$/\1$hn/" ./config/rosNetCfg
+  sed -i "s/\(^ROS_HOSTNAME=\).*/\1$hn/" ./config/rosNetCfg
+  display_remote_master_ip $hn
 }
 
 display_config() {
