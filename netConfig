@@ -128,18 +128,50 @@ case $(expr $flag) in
   4)
   # option:-l
     set_ros_master $(hostname)
+    set_ros_ip
+    set_ros_hostname
+    ;;
+  8)
+  # option:-m
+    set_ros_master $(hostname)
+    ;;
+  16)
+  # option:-n
+    set_ros_master $name
+    ;;
+  32)
+  # option:-r
+    while true; do
+      read -p "Do you wish to set this computer as ros master?" yn
+      case $yn in
+        [Yy]* )
+          set_ros_master $(hostname)
+          break
+          ;;
+        [Nn]* )
+          read -p "Please enter the name of ros master: " masterName
+          set_ros_master $masterName
+          break
+          ;;
+        * ) echo "Please answer yes or no."
+          ;;
+      esac
+    done
     ;;
   40)
   # options:-rm
     set_ros_master $(hostname)
+    set_ros_ip
+    set_ros_hostname
     ;;
   48)
   # options:-rn name
     set_ros_master $name
+    set_ros_ip
+    set_ros_hostname
     ;;
   *)
     ;;
 esac
 
-set_ros_ip
-set_ros_hostname
+exit 0
