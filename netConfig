@@ -8,7 +8,9 @@
 # Usage info
 show_help() {
 cat << EOF
+
 Usage: ${0##*/} [-r] [-n HOSTNAME] [-rm]...
+
 Complete ROS net configuration simply and tidily.
 
       -h            display this help and exit
@@ -18,7 +20,6 @@ Complete ROS net configuration simply and tidily.
       -m            set current computer as ros master
       -d            display current configuration
 
-      
 EOF
 }
 
@@ -59,10 +60,12 @@ fi
 # d | h | l | m | n | r
 # 0 | 1 | 2 | 3 | 4 | 5
 #---------------------------------------------
+
+# Options of this tool
 SHORT=dfhlmn:r
-#SHORT=flrmdn:h
 LONG=force,local,remote,master,display,name:,help
 
+# Use getopt tool to parse options from users
 PARSED=$(getopt --options $SHORT --longoptions $LONG --name "$0" -- "$@")
 if [[ $? -ne 0 ]]
 then
@@ -72,8 +75,10 @@ fi
 
 eval set -- "$PARSED"
 
+# Init flag as 0
 flag=$(expr 0)
 
+# Process the options from users
 while true; do
   case "$1" in
     -d|--display)
@@ -113,18 +118,23 @@ done
 
 case $(expr $flag) in
   1)
+  # option:-d
     display_config
     ;;
   2)
+  # option:-h
     show_help
     ;;
   4)
+  # option:-l
     set_ros_master $(hostname)
     ;;
   40)
+  # options:-rm
     set_ros_master $(hostname)
     ;;
   48)
+  # options:-rn name
     set_ros_master $name
     ;;
   *)
