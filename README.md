@@ -1,40 +1,55 @@
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+
 # Overview
 
-You can use this tool to configure ROS network easily. This tool need to be put on your robot and your PC at same time. And it is a little different to use it in your robot and PC. 
+You can use this tool to configure ROS network easily and tidily! This tool won't modified your system configuration and only in effect for current user logining. So it won't have any side-effect on your ros or operating system.
+
+# Install
+
+First, you must run `setup.sh` before configuration.
+
+      chmod +x setup.sh
+      ./setup.sh
 
 # Usage
 
-## Robot Side
+Then you can use this tool to configure ros network.There are some options in this tool. You can use `-h` or `--help` to display the explanation of them.
 
-It's quite easily to use them! On your robot side, you only need to execute the scripts of robot:
+      ./netConfig -h
+or
 
-```
-$ ./robotSetup.sh
-```
-Maybe you need use `chmod` command to add execute permission at first:
+      ./netConfig --help
 
-```
-$ sudo chmod +x robotSetup.sh
-```
-
-## PC Side
-
-Similarly, just run the corresponding scripts and make sure you have execute permission. 
+Then you can see the mannul of this tool:
 
 ```
-$ ./pcSetup.sh
+Usage: ${0##*/} [-r] [-n HOSTNAME] [-rm]...
+Complete ROS net configuration simply and tidily.
+
+      -h            display this help and exit
+      -n hostname   set the hostname of ros master
+      -r            use remote mode, used to communicate in multiply machines via ros network
+      -l            use local mode, not communicating with other machines
+      -m            set current computer as ros master
+      -d            display current configuration
 ```
 
-When you open a new terminal, you will be prompted to input the hostname of your remote robot.
+There are some options often used. For example, if you want to communicate in multiply computers, you'd better use option `-r` followed with a `-n hostname` or `-m`.
 
-```
-Load ROS network configuration...
-Enter the hostname of Robot side: 
-```
+        ./netConfig -rn <hostname of your remote PC>
 
-You can get it using command `hostname` in your remote robot:
+or
 
-```
-$ hostname
-```
-Enjoy it!
+      ./rosNetCfg -rm
+
+
+# Uninstall
+
+Use any editor you like to open `~/.bashrc`, such as vim, gedit:
+
+      vim ~/.bashrc
+
+And then delete these lines:
+
+      # ------------The settings produced by rosNetConfig------------
+      source .../rosNetConfig/exportSetting.sh .../rosNetConfig/

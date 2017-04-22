@@ -8,7 +8,17 @@
 # Usage info
 show_help() {
 cat << EOF
-Usage: ${0##*/} [-rn HOSTNAME] [-rm]...
+Usage: ${0##*/} [-r] [-n HOSTNAME] [-rm]...
+Complete ROS net configuration simply and tidily.
+
+      -h            display this help and exit
+      -n hostname   set the hostname of ros master
+      -r            use remote mode, used to communicate in multiply machines via ros network
+      -l            use local mode, not communicating with other machines
+      -m            set current computer as ros master
+      -d            display current configuration
+
+      
 EOF
 }
 
@@ -31,7 +41,11 @@ set_ros_hostname() {
 }
 
 display_config() {
- echo "nothing"
+  echo "The current configuration is: "
+  cat ./config/rosNetCfg | while read line
+  do
+    echo $line
+  done
 }
 
 getopt --test > /dev/null
@@ -114,7 +128,6 @@ case $(expr $flag) in
     set_ros_master $name
     ;;
   *)
-    #break
     ;;
 esac
 
