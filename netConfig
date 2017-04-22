@@ -38,7 +38,7 @@ set_ros_ip() {
 # Set ros hostname
 set_ros_hostname() {
   hn=$(hostname).local
-  sed -i "s/\(^ROS_HOSTNAME=\).*\$/\1$hn/" ./config/rosNetCfg
+  sed -i "s/\(^ROS_HOSTNAME=\).*/\1$hn/" ./config/rosNetCfg
 }
 
 display_config() {
