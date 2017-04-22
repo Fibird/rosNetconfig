@@ -31,6 +31,8 @@ set_ros_master() {
 }
 
 # Set ros ip
+# Inspired by this question from stackoverflow:
+# http://stackoverflow.com/questions/21336126/linux-bash-script-to-extract-ip-address
 set_ros_ip() {
   ip_add=$(ip route get 8.8.8.8 | awk '/8.8.8.8/ {print $NF}')
   sed -i "s/\(^export\ ROS_IP=\).*/\1$ip_add/" ./config/rosNetCfg
@@ -80,6 +82,8 @@ eval set -- "$PARSED"
 flag=$(expr 0)
 
 # Process the options from users
+# Inspired by this question from stackoverflow:
+# http://stackoverflow.com/questions/192249/how-do-i-parse-command-line-arguments-in-bash/14203146#14203146
 while true; do
   case "$1" in
     -d|--display)
