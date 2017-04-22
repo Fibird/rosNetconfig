@@ -17,3 +17,6 @@
 .nfs*
 
 # End of https://www.gitignore.io/api/linux
+
+# personal config file
+config/*
