@@ -1,7 +1,7 @@
 #!/bin/bash
-# Shell script scripts to set ROS network configuration on PC side
+# Shell script scripts to set ROS network configuration
 # ----------------------------------------------------------------
-# Copyright(c)2016 Chaoyang Liu <http://chaoyangliu.cc>
+# Copyright(c)2016-2017 Chaoyang Liu <http://chaoyangliu.cc>
 # This script is licensed under GNU GPL version 3 or above
 # ----------------------------------------------------------------
 

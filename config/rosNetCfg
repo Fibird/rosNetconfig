@@ -1,3 +1,4 @@
+# configuration after running script
 export ROS_MASTER_URI=http://tegra-ubuntu.local:11311
 export ROS_HOSTNAME=bird-E460.local
 export ROS_IP=192.168.1.36

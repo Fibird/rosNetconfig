@@ -23,7 +23,8 @@ or
 Then you can see the mannul of this tool:
 
 ```
-Usage: ${0##*/} [-r] [-n HOSTNAME] [-rm]...
+Usage: netConfig [-r] [-n HOSTNAME] [-rm]...
+
 Complete ROS net configuration simply and tidily.
 
       -h            display this help and exit
@@ -52,4 +53,4 @@ Use any editor you like to open `~/.bashrc`, such as vim, gedit:
 And then delete these lines:
 
       # ------------The settings produced by rosNetConfig------------
-      source .../rosNetConfig/exportSetting.sh .../rosNetConfig/
+      source .../rosNetConfig/config/rosNetCfg
