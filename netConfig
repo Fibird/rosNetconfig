@@ -28,7 +28,7 @@ set_ros_master() {
   master_hn=$1.local
   master_uri=http://$master_hn:11311
   sed -i "s%\(^export\ ROS_MASTER_URI=\).*%\1$master_uri%" ./config/rosNetCfg
-  display_remote_master_ip $master_hn
+  #display_remote_master_ip $master_hn
 }
 
 # Set ros ip
@@ -41,7 +41,12 @@ set_ros_ip() {
 
 display_remote_master_ip() {
   master_ip="`gethostip -d "$1"`"
-  echo "The IP address of ros master is: $master_ip"
+  if [ -z "$master_ip" ]
+  then
+    echo "Can not detect remote master, please check if remote is started."
+  else
+    echo "The IP address of ros master is: $master_ip"
+  fi
 }
 # Set ros hostname
 set_ros_hostname() {
@@ -148,6 +153,7 @@ case $(expr $flag) in
   16)
   # option:-n
     set_ros_master $name
+    display_remote_master_ip $name.local
     ;;
   32)
   # option:-r
@@ -179,6 +185,7 @@ case $(expr $flag) in
     set_ros_master $name
     set_ros_ip
     set_ros_hostname
+    display_remote_master_ip $name.local
     ;;
   *)
     ;;
