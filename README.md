@@ -43,6 +43,9 @@ or
 
       ./rosNetCfg -rm
 
+After that, open a new terminal or run following command and the configuration will be in effect.
+
+      source ~/.bashrc
 
 # Uninstall
 
