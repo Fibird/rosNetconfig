@@ -39,6 +39,9 @@ set_ros_ip() {
   sed -i "s/\(^export\ ROS_IP=\).*/\1$ip_add/" ./config/rosNetCfg
 }
 
+# display remote ros master ip address from hostname
+# Inspired by this question from stackoverflow:
+# https://serverfault.com/questions/170706/easy-way-to-get-ip-address-from-hostname-using-a-unix-shell?newreg=36e1160986704b8eb8e16524aa0381af
 display_remote_master_ip() {
   master_ip="`gethostip -d "$1"`"
   if [ -z "$master_ip" ]
